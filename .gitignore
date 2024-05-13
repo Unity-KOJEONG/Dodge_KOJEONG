@@ -2,6 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+# custom ignore
+Dodge_KOJEONG/Library/
+Dodge_KOJEONG/Logs/
+Dodge_KOJEONG/Packages/
+Dodge_KOJEONG/ProjectSettings/
+Dodge_KOJEONG/UserSettings/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
