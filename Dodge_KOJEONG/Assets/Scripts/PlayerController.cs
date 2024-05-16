@@ -2,37 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-    public Rigidbody playerRigidbody; // 이동에 사용할 리지드바디 컴포넌트
-    public float speed = 8f; // 이동 속력
+public class PlayerController : MonoBehaviour
+{
+        public Rigidbody playerRigidbody;
+        public float speed = 8f;
+        private int score = 0; // 플레이어의 스코어
+        // public GameObject weapon; // 플레이어의 무기 오브젝트
+        // private Animator animator;
 
-    void Start() {
-        // 게임 오브젝트에서 Rigidbody 컴포넌트를 찾아 playerRigidbody에 할당
+    // Start is called before the first frame update
+    void Start()
+    {
         playerRigidbody = GetComponent<Rigidbody>();
+        // 무기 오브젝트 찾기 (자식 오브젝트 중에서 찾거나, 인스펙터에서 직접 할당)
+        // weapon = transform.Find("WeaponObject").gameObject;
+
+        // animator = GetComponent<Animator>();
+
     }
 
-    void Update() {
-        // 수평축과 수직축의 입력값을 감지하여 저장
+    // Update is called once per frame
+    void Update()
+    {
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
+        float xSpeed = xInput*speed;
+        float zSpeed = zInput*speed;
 
-        // 실제 이동 속도를 입력값과 이동 속력을 사용해 결정
-        float xSpeed = xInput * speed;
-        float zSpeed = zInput * speed;
-
-        // Vector3 속도를 (xSpeed, 0, zSpeed)로 생성
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
-        // 리지드바디의 속도에 newVelocity 할당
         playerRigidbody.velocity = newVelocity;
+
+        // 플레이어가 A 키를 누르면 무기 휘두르기
+        // if(Input.GetKeyDown(KeyCode.A))
+        // {
+        //     if(weapon != null)
+        //         weapon.GetComponent<Weapon>().Swing();
+        //         animator.SetTrigger("SwingWeapon"); // 애니메이터의 SwingWeapon 트리거를 활성화
+        // }
     }
 
-    public void Die() {
-        // 자신의 게임 오브젝트를 비활성화
+    public void Die(){
         gameObject.SetActive(false);
-
-        // 씬에 존재하는 GameManager 타입의 오브젝트를 찾아서 가져오기
         GameManager gameManager = FindObjectOfType<GameManager>();
-        // 가져온 GameManager 오브젝트의 EndGame() 메서드 실행
         gameManager.EndGame();
+    }
+
+    public void IncreaseScore()
+    {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if(gameManager != null){
+            gameManager.IncreaseScore(10); // GameManager의 IncreaseScore 메소드를 호출하여 스코어를 10 증가시킵니다.
+        }
+        Debug.Log("Score increased! Current score: " + score);
     }
 }
