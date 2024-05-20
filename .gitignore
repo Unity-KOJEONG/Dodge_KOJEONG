@@ -2,6 +2,15 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+# Custom ignore
+Library/
+/Logs/
+/Packages/
+/ProjectSettings/
+Temp/
+/Usersettings/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
